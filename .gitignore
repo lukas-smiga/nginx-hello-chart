@@ -1,0 +1,11 @@
+# Vim junk files
+.*.swp
+*~
+
+# IDE project & other files
+.classpath
+.project
+.settings/
+.vscode
+.factorypath
+.DS_Store
