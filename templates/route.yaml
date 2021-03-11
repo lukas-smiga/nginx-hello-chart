@@ -1,0 +1,20 @@
+{{- if .Values.route.enabled }}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ include "nginx-hello-chart.fullname" . }}
+  labels: {{- include "nginx-hello-chart.labels" . | nindent 4 }}
+  annotations:
+    {{- range $key, $value := .Values.route.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+spec:
+  host: {{ .Values.route.path }}
+  port:
+    targetPort: {{ .Values.service.portName }}
+  to:
+    kind: Service
+    name: {{ .Values.service.name }}
+    weight: 100
+  wildcardPolicy: None
+{{- end }}
